@@ -1,0 +1,24 @@
+{
+    "name": "igancev/yii2-push-notification",
+    "description": "Yii2 component, push notification for mobile devices (based on duccio/apns-php)",
+    "keywords": ["yii2", "push", "notification", "mobile"],
+    "homepage": "https://github.com/igancev/yii2-push-notification",
+    "type": "yii2 component",
+    "require": {
+        "duccio/apns-php": "^1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Иван Ганцев",
+            "email": "ivangancev@yandex.ru",
+            "homepage": "http://igancev.ru",
+            "role": "Developer"
+        }
+    ],
+    "autoload":{
+        "psr-4":{
+            "igancev\\push\\":"src/"
+        }
+    }
+}
