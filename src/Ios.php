@@ -22,6 +22,9 @@ class Ios extends Object implements RecipientTypeInterface
      */
     protected $apnsPhp;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         $this->apnsPhp = new ApnsPHP_Push(
@@ -45,6 +48,7 @@ class Ios extends Object implements RecipientTypeInterface
     }
 
     /**
+     * Adding message to queue messages
      * @param Message $message
      */
     public function addMessage(Message $message)
@@ -80,22 +84,24 @@ class Ios extends Object implements RecipientTypeInterface
 
     public function send()
     {
-        // Connect to the Apple Push Notification Service
-        $this->apnsPhp->connect();
+        if(!empty($this->messages)) {
+            // Connect to the Apple Push Notification Service
+            $this->apnsPhp->connect();
 
-        /** @var ApnsPHP_Message $message */
-        foreach ($this->messages as $message) {
-            // Add the message to the message queue
-            $this->apnsPhp->add($message);
+            /** @var ApnsPHP_Message $message */
+            foreach ($this->messages as $message) {
+                // Add the message to the message queue
+                $this->apnsPhp->add($message);
+            }
+
+            // Send all messages in the message queue
+            $this->apnsPhp->send();
+
+            // Disconnect from the Apple Push Notification Service
+            $this->apnsPhp->disconnect();
+
+            $this->errors = $this->apnsPhp->getErrors();
         }
-
-        // Send all messages in the message queue
-        $this->apnsPhp->send();
-
-        // Disconnect from the Apple Push Notification Service
-        $this->apnsPhp->disconnect();
-
-        $this->errors = $this->apnsPhp->getErrors();
 
         return empty($this->errors);
     }

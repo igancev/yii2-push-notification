@@ -6,19 +6,48 @@ use yii\base\Object;
 
 class Message extends Object
 {
+    /**
+     * @var array
+     */
     public $deviceTokens = [];
+    /**
+     * @var string
+     */
     public $customIdentifier;
+    /**
+     * @var string
+     */
     public $badge;
+    /**
+     * @var string
+     */
     public $text;
+    /**
+     * @var string
+     */
     public $sound;
+    /**
+     * @var integer
+     */
     public $expiry;
+    /**
+     * @var array
+     */
     public $customProperties = [];
 
+    /**
+     * @param string $deviceToken
+     * @return void
+     */
     public function addDeviceToken($deviceToken)
     {
         $this->deviceTokens[] = $deviceToken;
     }
 
+    /**
+     * @param $key
+     * @param $value
+     */
     public function addCustomProperty($key, $value)
     {
         $this->customProperties[$key] = $value;
