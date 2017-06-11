@@ -14,9 +14,14 @@ class Push extends Component
     public $params;
 
     /**
-     * @var Ios
+     * @var RecipientTypeInterface
      */
     public $ios = null;
+
+    /**
+     * @var array
+     */
+    protected $errors = [];
 
     /**
      * @inheritdoc
@@ -42,6 +47,7 @@ class Push extends Component
         /** @var RecipientTypeInterface $recipientType */
         foreach ($recipientTypes as $recipientType) {
             $recipientType->send();
+            $this->errors = array_merge($this->errors, $recipientType->getErrors());
         }
     }
 
@@ -49,7 +55,7 @@ class Push extends Component
      * @param array $params
      * @return Message
      */
-    public function createMessage(array $params)
+    public function createMessage(array $params = [])
     {
         return new Message($params);
     }
@@ -71,5 +77,13 @@ class Push extends Component
         }
 
         return $recipientTypes;
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->errors;
     }
 }

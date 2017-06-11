@@ -62,7 +62,7 @@ class Message extends Object
     }
 
     /**
-     * @param mixed $badge
+     * @param integer $badge
      */
     public function setBadge($badge)
     {
@@ -96,7 +96,7 @@ class Message extends Object
     /**
      * @param mixed $sound
      */
-    public function setSound($sound)
+    public function setSound($sound = 'default')
     {
         $this->sound = $sound;
     }
@@ -110,7 +110,7 @@ class Message extends Object
     }
 
     /**
-     * @param mixed $expiry
+     * @param integer $expiry
      */
     public function setExpiry($expiry)
     {
